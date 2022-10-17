@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+}
+
+.cabecera {
+  overflow: hidden;
+  background-color: #d47ff0;
+  padding: 2%;
+  margin-left: 10%;
+}
+
+.cabecera a {
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.cabecera a:hover {
+  background-color: #ede1f1;
+  color: black;
+}
+
+.cabecera a.enlace_resaltado {
+  background-color: #e3c5ed;
+  font-weight: bold;
+}
+
+.enlaces {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .cabecera a {
+    display: block;
+    text-align: left;
+  }
+  .enlaces {
+    float: none;
+  }
+}
+
+.barra_lateral {
+  position: fixed;
+  background-color: #d47ff0;
+  height: 100%;
+  width: 10%;
+  padding-top: 0.8%;
+}
+
+.barra_lateral a,
+.barra_lateral h3 {
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 50%;
+  word-wrap: break-word;
+  padding: 1%;
+}
+
+.barra_lateral a {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  background-color: #e3c5ed;
+  border: 1px black solid;
+}
