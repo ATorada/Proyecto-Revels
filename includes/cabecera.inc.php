@@ -6,12 +6,18 @@
         <a href="#">Amigo 3</a>
     </div>
     <div class="cabecera">
-        <a href="index.php" class="logo">Fotico</a>
-        <div class="enlaces">
+        <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo_Revels"></a>
+        <div class="barra_navegacion">
             <a class="enlace_resaltado" href="#">Iniciar sesión</a>
             <a href="#">Nuevo Revel</a>
             <a href="#">Cuenta</a>
             <a href="#">Cerrar sesión</a>
+            <div class="busqueda">
+            <form action="#">
+                    <input type="text">
+                    <button type="submit">🔍</button>
+            </form>
+            </div>
         </div>
     </div>
 </header>
