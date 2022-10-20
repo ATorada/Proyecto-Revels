@@ -19,6 +19,7 @@ body {
   background-color: #ba70d3;
   padding: 1%;
   margin-left: 10%;
+  border-bottom: 2px black solid;
 }
 
 .barra_navegacion a {
@@ -94,6 +95,7 @@ body {
   height: 100%;
   width: 10%;
   padding-top: 0.8%;
+  border-right: 2px black solid;
 }
 
 .barra_lateral a,
@@ -113,4 +115,45 @@ body {
   margin-bottom: 1%;
   background-color: #e3c5ed;
   border: 1px black solid;
+}
+
+
+.contenedor {
+  text-align: center;
+  width: 50%;
+  margin-top: 100px;
+  background-color: rgb(250, 244, 255);
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contenedor input:not(.registrar) {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  padding: 5px 5% 5px 5%;
+  padding-left: 1%;
+}
+
+.contenedor label {
+  font-size: 20px;
+}
+
+.registrar {
+  background-color: #7604aa;
+  color: white;
+  font-weight: bold;
+  padding: 1%;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.registrar:hover {
+  opacity: 1;
 }
