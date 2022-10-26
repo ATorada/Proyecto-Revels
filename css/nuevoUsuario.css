@@ -1,0 +1,11 @@
+.cabecera {
+    overflow: hidden;
+    background-color: #ba70d3;
+    padding: 1%;
+    margin-left: 0% !important;
+    border-bottom: 2px black solid;
+  }
+
+.barra_lateral{
+    visibility: hidden !important; 
+}

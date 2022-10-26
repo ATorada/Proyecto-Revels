@@ -6,21 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revels ~ ✨</title>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    $registrado = true;
+    if ($registrado) {
+    ?>
+        <link rel="stylesheet" href="css/style.css">
+    <?php
+    } else {
+    ?>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/nuevoUsuario.css">
+    <?php
+    }
+    ?>
 </head>
 
 <body>
     <?php
-
-    $registrado = false;
-
     require_once('includes/cabecera.inc.php');
     ?>
 
     <?php
     if (!$registrado) {
     ?>
-        <div class="contenedor">
+        <div class="formulario">
             <h1>¡Bienvenido a Revels! <br>📸</h1><br>
             <form action="#" method="post">
                 <label for="mail"><b>Correo electrónico</b></label>
