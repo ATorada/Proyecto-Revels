@@ -46,9 +46,23 @@
             </form>
         </div>
     <?php
-    }
+    } else {
     ?>
-
+            <div class="publicaciones">
+            <h1>Fotillos<br>📸</h1><br>
+            <?php
+            for ($i=0; $i < 49; $i++) { 
+                echo '<div class="publicacion">';
+                echo '<h2>Título</h2>';
+                echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
+                echo '<p>Comentarios: X Autor: X</p>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+    <?php
+        }
+    ?>
 </body>
 
 </html>

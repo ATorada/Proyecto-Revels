@@ -30,12 +30,6 @@
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo_Revels"></a>
         <div class="barra_navegacion">
             <a class="enlace_resaltado" href="#">Iniciar sesión</a>
-            <div class="busqueda">
-            <form action="#">
-                    <input type="text">
-                    <button type="submit">🔍</button>
-            </form>
-            </div>
         </div>
     </div>
     <?php

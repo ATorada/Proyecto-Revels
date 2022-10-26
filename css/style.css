@@ -79,6 +79,11 @@ body {
     text-align: left;
   }
 
+  .publicaciones {
+    flex-direction: column;
+  }
+
+
   .busqueda {
     margin-top: 5px;
   }
@@ -156,4 +161,45 @@ body {
 
 .registrar:hover {
   opacity: 1;
+}
+
+.publicaciones {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 85%;
+  margin-top: 50px;
+  background-color: rgb(250, 244, 255);
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-left: 13%;
+  margin-right: auto;
+}
+
+.publicaciones h1 {
+  flex-basis: 100%;
+}
+
+.publicacion {
+  flex: 1;
+  flex-basis: 15%;
+  width: calc(53vh - 50px);
+  height: 10%;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 1%;
+  margin: 2%;
+}
+
+.publicacion:hover {
+  background-color: rgb(242, 220, 255);
+}
+
+.preview_foto {
+  width: 200px;
+  height: 200px;
+  margin: 1%;
+  border: 1px solid black;
+  border-radius: 20px;
 }
