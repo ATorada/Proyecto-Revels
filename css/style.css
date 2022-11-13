@@ -190,6 +190,8 @@ body {
   border-radius: 20px;
   padding: 1%;
   margin: 2%;
+  text-decoration: none;
+  color: black;
 }
 
 .publicacion:hover {
@@ -202,4 +204,21 @@ body {
   margin: 1%;
   border: 1px solid black;
   border-radius: 20px;
+}
+
+.autor {
+  color: #7604aa;
+  font-weight: bold;
+}
+
+.error {
+  background-color: #fef7ff;
+  border: 3px #ff8c8c solid;
+  padding: 1%;
+  width: 20%;
+  margin: auto;
+}
+
+.error:first-letter {
+  text-transform: uppercase;
 }

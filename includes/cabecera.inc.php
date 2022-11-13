@@ -12,7 +12,7 @@
     <div class="cabecera">
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo_Revels"></a>
         <div class="barra_navegacion">
-            <a href="#">Nuevo Revel</a>
+            <a href="new.php">Nuevo Revel</a>
             <a href="#">Cuenta</a>
             <a href="#">Cerrar sesión</a>
             <div class="busqueda">

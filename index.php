@@ -24,6 +24,7 @@
 <body>
     <?php
     require_once('includes/cabecera.inc.php');
+    require_once('includes/conexion.inc.php');
     ?>
 
     <?php
@@ -51,14 +52,22 @@
             <div class="publicaciones">
             <h1>Fotillos<br>📸</h1><br>
             <?php
-            for ($i=0; $i < 49; $i++) { 
-                echo '<div class="publicacion">';
-                echo '<h2>Título</h2>';
+            $conexion = conectar();
+            $revels = $conexion->query("SELECT * FROM revels");
+
+            while ($fila = $revels->fetch(PDO::FETCH_ASSOC)) {
+                echo '<a class="publicacion" href="https://www.google.com">';
+                echo '<h2>' . $fila['texto'] . '</h2>';
                 echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
-                echo '<p>Comentarios: X Autor: X</p>';
-                echo '</div>';
+
+                $usuario = $conexion->query("SELECT * FROM users WHERE id = " . $fila['userid']);
+                $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+
+                echo '<p>Comentarios: X Autor: <span class="autor">' . $usuario['usuario'] . '</span></p>';
+                echo '</a>';
             }
             ?>
+
         </div>
     <?php
         }
