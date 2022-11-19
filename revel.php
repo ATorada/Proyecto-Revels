@@ -1,6 +1,20 @@
 <?php
 require_once('includes/autologin.inc.php');
 require_once('includes/conexion.inc.php');
+
+if (!isset($_GET['id'])) {
+    header('Location: index.php');
+}
+
+//Comprueba que el revel exista
+$conexion = conectar();
+$consulta = $conexion->prepare("SELECT * FROM revels WHERE id = ?");
+$consulta->execute([$_GET['id']]);
+if ($consulta->rowCount() <= 0) {
+    header('Location: index.php');
+}
+unset($consulta);
+unset($conexion);
 ?>
 <!DOCTYPE html>
 <html lang="es">
