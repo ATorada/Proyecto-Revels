@@ -29,6 +29,8 @@ if (count($_POST) > 0) {
         } else {
             $error = "<p class='error'>Confirme para realizar esta acción.</p>";
         }
+    } else {
+        header('Location: index.php');
     }
 }
 

@@ -251,7 +251,7 @@ body {
   width: 25%;
 }
 
-.revel, .errores, .resultados, .eliminaCuenta{
+.revel, .errores, .resultados, .eliminaCuenta, .verRevelaciones, .listarRevelaciones{
   margin: 2%;
   margin-left: auto;
   margin-right: auto;
@@ -272,7 +272,7 @@ body {
   width: 50%;
 }
 
-.usuario {
+.usuario, .revel {
   background-color: rgb(250, 244, 255);
   border: 1px solid black;
   border-radius: 10px;
@@ -284,12 +284,12 @@ body {
   width: 25%;
 }
 
-.usuario a {
+.usuario a, .revel a {
   text-decoration: none;
   color: black;
 }
 
-.usuario a:hover {
+.usuario a:hover, .revel a:hover {
   color: #7604aa;
 }
 

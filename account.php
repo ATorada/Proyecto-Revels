@@ -99,5 +99,10 @@ if(count($_POST)>0){
         </form>
     </div>
 
+    <div class="verRevelaciones">
+        <h1>¿Quieres ver tus revelaciones?</h1>
+        <a href="list.php" class="boton">Ver</a><br><br>
+    </div>
+
 </body>
 </html>
