@@ -68,6 +68,8 @@
                 echo '<p>Comentarios: '. $comentarios->rowCount() .' Autor: <span class="autor">' . $usuario['usuario'] . '</span></p>';
                 echo '</a>';
             }
+            unset($revels);
+            unset($conexion);
             ?>
 
         </div>
