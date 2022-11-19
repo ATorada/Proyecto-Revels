@@ -58,7 +58,7 @@ require_once('includes/conexion.inc.php');
             $revels = $conexion->query("SELECT * FROM revels ORDER BY revels.fecha DESC");
 
             while ($revel = $revels->fetch(PDO::FETCH_ASSOC)) {
-                echo '<a class="publicacion" href="https://www.google.com">';
+                echo '<a class="publicacion" href="revel.php?id='.$revel["id"].'">';
                 echo '<h2>' . $revel['texto'] . '</h2>';
                 echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
 

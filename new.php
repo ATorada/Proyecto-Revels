@@ -35,6 +35,7 @@ if (count($_POST) != 0) {
 
             try {
                 $consulta->execute();
+                header('Location: revel.php?id=' . $conexion->lastInsertId());
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
