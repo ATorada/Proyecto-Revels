@@ -221,6 +221,14 @@ body {
   margin: auto;
 }
 
+.correcto {
+  background-color: white;
+  border: 3px #8cff8c solid;
+  padding: 1%;
+  width: 20%;
+  margin: auto;
+}
+
 .error:first-letter {
   text-transform: uppercase;
 }
