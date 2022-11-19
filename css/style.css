@@ -3,6 +3,10 @@
   src: url("fonts/Rosario-Regular.ttf");
 }
 
+* {
+  transition: all .5s;
+}
+
 body {
   font-family: "Fuente";
   margin: 0;
@@ -72,17 +76,34 @@ body {
   background: rgb(228, 170, 255);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
+
+  * {
+    transition: all .5s;
+  }
+
   .cabecera a, .barra_navegacion, .busqueda, .busqueda input {
     float: none;
     display: block;
     text-align: left;
   }
 
-  .publicaciones {
-    flex-direction: column;
+  .cabecera, .publicaciones {
+    margin-left: 155px !important;
   }
 
+  .barra_lateral {
+    width: 155px !important;
+    height: auto;
+    padding: 0;
+  }
+
+  .publicaciones {
+    flex-direction: column;
+    width: 73% !important;
+    align-content: center;
+    margin-left: 180px !important;
+  }
 
   .busqueda {
     margin-top: 5px;
@@ -92,6 +113,12 @@ body {
     width: 100%;
     margin: 0px;
   }
+
+  .busqueda button {
+    margin-right: -10px;
+    width: 101.35%;
+  }
+
 }
 
 .barra_lateral {
@@ -104,7 +131,7 @@ body {
   text-align: center;
 }
 
-.barra_lateral a,
+.barra_lateral p,
 .barra_lateral h3 {
   width: 100%;
   display: block;
@@ -116,7 +143,7 @@ body {
   padding: 1%;
 }
 
-.barra_lateral a {
+.barra_lateral p {
   margin-top: 1%;
   margin-bottom: 1%;
   background-color: #e3c5ed;
@@ -186,6 +213,11 @@ body {
 
 .publicaciones h1 {
   flex-basis: 100%;
+}
+
+.publicaciones p {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .publicacion {

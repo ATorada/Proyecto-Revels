@@ -12,7 +12,7 @@
                 while ($seguido = $consulta->fetch(PDO::FETCH_ASSOC)) {
                     $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $seguido['userfollowed']);
                     $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
-                    echo '<a href="perfil.php?id=' . $seguido['userfollowed'] . '">' . $usuario['usuario'] . '</a>';
+                    echo '<p href="perfil.php?id=' . $seguido['userfollowed'] . '">' . $usuario['usuario'] . '</p>';
                 }
             } else {
                 echo '<p>No sigues a nadie</p>';
