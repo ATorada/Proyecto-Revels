@@ -1,3 +1,6 @@
+<?php
+require_once('includes/conexion.inc.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +27,6 @@
 <body>
     <?php
     require_once('includes/cabecera.inc.php');
-    require_once('includes/conexion.inc.php');
     ?>
 
     <?php
