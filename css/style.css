@@ -101,6 +101,7 @@ body {
   width: 10%;
   padding-top: 0.8%;
   border-right: 2px black solid;
+  text-align: center;
 }
 
 .barra_lateral a,
