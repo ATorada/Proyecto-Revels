@@ -71,7 +71,7 @@ if (count($_POST) != 0) {
             <label for="imagen">Imagen</label>
             <input type="file" name="imagen" id="imagen"> 
         -->
-            <input class="registrar" type="submit" value="Crear Revel">
+            <input class="boton" type="submit" value="Crear Revel">
         </form>
     </div>
 
