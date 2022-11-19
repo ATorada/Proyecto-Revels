@@ -105,22 +105,21 @@ if (count($_POST) > 0) {
             <div class="publicaciones">
             <h1>Revels<br>📸</h1><br>
             <?php
-            //Muestra los revels de los usuarios que sigue el usuario actual
+            //Muestra los revels del usuario y los revels de los usuarios que sigue
             $conexion = conectar();
-            $consulta = $conexion->prepare("SELECT * FROM users WHERE id IN (SELECT userfollowed FROM follows WHERE userid = ?) ORDER BY id DESC");
-            $consulta->execute([$_SESSION['usuario_id']]);
+            $consulta = $conexion->prepare("SELECT * FROM revels WHERE userid = ? or userid in (SELECT userfollowed FROM follows WHERE userid = ?) ORDER BY fecha DESC");
+            $consulta->execute([$_SESSION['usuario_id'], $_SESSION['usuario_id']]);
+            $revels = $consulta->fetchAll(PDO::FETCH_ASSOC);
             if ($consulta->rowCount() > 0) {
-            //Se recorren los usuarios que sigue el usuario actual y se muestran sus revels
-            $usuarios = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($usuarios as $usuario) {
-                $consulta = $conexion->prepare("SELECT * FROM revels WHERE userid = ? ORDER BY id DESC");
-                $consulta->execute([$usuario['id']]);
-                $revels = $consulta->fetchAll(PDO::FETCH_ASSOC);
-                //Se recorren los revels del usuario actual y se muestran
                 foreach ($revels as $revel) {
                         echo '<a class="publicacion" href="revel.php?id='.$revel["id"].'">';
                         echo '<h2>' . $revel['texto'] . '</h2>';
-                        echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
+                        //Comprueba si existe una imagen para el revel, sino pone una por defecto
+                        if (file_exists('img/revels/'. $revel['id'] ."_". $_SESSION["usuario"]  . '_resized.jpg')) {
+                            echo '<img class="preview_foto" src="img/revels/'. $revel['id'] ."_". $_SESSION["usuario"]  . '_resized.jpg" alt="Imagen del revel">';
+                        } else {
+                            echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
+                        }
         
                         $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $revel['userid']);
                         $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
@@ -130,12 +129,12 @@ if (count($_POST) > 0) {
                         echo '<p>Comentarios: <span class="resaltado">'. $comentarios->rowCount() .'</span></p>';
                         echo '</a>';
                 }
-            }
             unset($consulta);
             unset($conexion);
             } else {
                 echo '<p>¡No sigues a nadie!</p>';
             }
+
             ?>
 
         </div>
