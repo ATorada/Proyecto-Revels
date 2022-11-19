@@ -54,7 +54,7 @@ require_once('includes/conexion.inc.php');
         <form action="comment.php" method="post">
             <label for="comentario"><b>Comentario</b></label>
             <input type="text" name="comentario" id="comentario" required>
-
+            <input type="hidden" value="<?=$_GET['id']?>" name="id" id="id">
             <input class="registrar" type="submit" value="Comentar">
         </form>
     </div>

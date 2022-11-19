@@ -236,7 +236,7 @@ body {
   width: 25%;
 }
 
-.revel{
+.revel, .errores{
   margin: 2%;
   margin-left: auto;
   margin-right: auto;
@@ -245,4 +245,15 @@ body {
   width: 50%;
   text-align: center;
   border-radius: 20px;
+}
+
+
+.errores {
+  width: 45%;
+  padding: 1%;
+}
+
+.errores .error {
+  margin-top: 2%;
+  width: 50%;
 }
