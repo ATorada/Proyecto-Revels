@@ -3,10 +3,17 @@
         if (isset($_SESSION["usuario"])) {
     ?>
     <div class="barra_lateral">
-        <h3>Amigos</h3>
-        <a href="#">Amigo 1</a>
-        <a href="#">Amigo 2</a>
-        <a href="#">Amigo 3</a>
+        <h3>Seguidos</h3>
+        <?php
+        $conexion = conectar();
+        $consulta = $conexion->prepare("SELECT * FROM follows WHERE userid = ?");
+        $consulta->execute([$_SESSION['usuario_id']]);
+        while ($seguido = $consulta->fetch(PDO::FETCH_ASSOC)) {
+            $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $seguido['userfollowed']);
+            $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+            echo '<a href="' . $seguido['userfollowed'] . '">' . $usuario['usuario'] . '</a>';
+        }
+        ?>
     </div>
     <div class="cabecera">
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo_Revels"></a>
@@ -15,8 +22,8 @@
             <a href="#">Cuenta</a>
             <a href="logout.php">Cerrar sesión</a>
             <div class="busqueda">
-            <form action="#">
-                    <input type="text">
+            <form action="results.php">
+                    <input type="text" name="busqueda" id="busqueda">
                     <button type="submit">🔍</button>
             </form>
             </div>

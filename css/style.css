@@ -207,7 +207,7 @@ body {
   border-radius: 20px;
 }
 
-.resaltado {
+.resaltado, .usuario p {
   color: #7604aa;
   font-weight: bold;
 }
@@ -236,7 +236,7 @@ body {
   width: 25%;
 }
 
-.revel, .errores{
+.revel, .errores, .resultados{
   margin: 2%;
   margin-left: auto;
   margin-right: auto;
@@ -247,7 +247,6 @@ body {
   border-radius: 20px;
 }
 
-
 .errores {
   width: 45%;
   padding: 1%;
@@ -256,4 +255,25 @@ body {
 .errores .error {
   margin-top: 2%;
   width: 50%;
+}
+
+.usuario {
+  background-color: rgb(250, 244, 255);
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1%;
+  width: 25%;
+}
+
+.usuario a {
+  text-decoration: none;
+  color: black;
+}
+
+.usuario a:hover {
+  color: #7604aa;
 }
