@@ -15,6 +15,7 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revelaciones</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/backend.css">
 </head>
 <body>
     <?php
