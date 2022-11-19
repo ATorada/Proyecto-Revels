@@ -66,8 +66,8 @@ require_once('includes/conexion.inc.php');
                 $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
 
                 $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = " . $revel['id']);
-
-                echo '<p>Comentarios: '. $comentarios->rowCount() .' Autor: <span class="autor">' . $usuario['usuario'] . '</span></p>';
+                echo '<p>Autor: <span class="resaltado">' . $usuario['usuario'] . '</span></p>';
+                echo '<p>Comentarios: <span class="resaltado">'. $comentarios->rowCount() .'</span></p>';
                 echo '</a>';
             }
             unset($revels);
