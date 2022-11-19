@@ -1,7 +1,6 @@
 <header>
     <?php
-        $registrado = true;
-        if ($registrado) {
+        if (isset($_SESSION["usuario"])) {
     ?>
     <div class="barra_lateral">
         <h3>Amigos</h3>
@@ -14,7 +13,7 @@
         <div class="barra_navegacion">
             <a href="new.php">Nuevo Revel</a>
             <a href="#">Cuenta</a>
-            <a href="#">Cerrar sesión</a>
+            <a href="logout.php">Cerrar sesión</a>
             <div class="busqueda">
             <form action="#">
                     <input type="text">
@@ -29,7 +28,7 @@
     <div class="cabecera">
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo_Revels"></a>
         <div class="barra_navegacion">
-            <a class="enlace_resaltado" href="#">Iniciar sesión</a>
+            <a class="enlace_resaltado" href="login.php">Iniciar sesión</a>
         </div>
     </div>
     <?php

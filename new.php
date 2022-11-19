@@ -1,5 +1,10 @@
 <?php
+require_once('includes/autologin.inc.php');
 require_once('includes/conexion.inc.php');
+
+if (!isset($_SESSION["usuario"])) {
+    header("Location: index.php");
+}
 
 //Se establecen las expresiones regulares en variables para posteriormente entender mejor el código
 $exprTitulo = '/^[A-z0-9\s\ñ]{3,15}$/';
@@ -26,13 +31,11 @@ if (count($_POST) != 0) {
 
         if (!is_null($conexion)) {
             $consulta = $conexion->prepare('INSERT INTO revels (userid, texto, fecha) VALUES (?, ?, ?); ');
-
-            $id = 1;
-            $fecha = date("Y-m-d H:i:s");;
-            $consulta->bindParam(1, $id);
+            
+            $fecha = date("Y-m-d H:i:s");
+            $consulta->bindParam(1, $_SESSION["usuario_id"]);
             $consulta->bindParam(2, $_POST["titulo"]);
             $consulta->bindParam(3, $fecha);
-
             try {
                 $consulta->execute();
                 header('Location: revel.php?id=' . $conexion->lastInsertId());

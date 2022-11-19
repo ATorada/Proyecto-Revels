@@ -135,7 +135,7 @@ body {
   margin-right: auto;
 }
 
-.formulario input:not(.registrar) {
+.formulario input:not(.boton) {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -148,7 +148,7 @@ body {
   font-size: 20px;
 }
 
-.registrar {
+.boton {
   background-color: #7604aa;
   color: white;
   font-weight: bold;
@@ -160,7 +160,7 @@ body {
   opacity: 0.9;
 }
 
-.registrar:hover {
+.boton:hover {
   opacity: 1;
 }
 

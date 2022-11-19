@@ -1,4 +1,5 @@
 <?php
+require_once('includes/autologin.inc.php');
 require_once('includes/conexion.inc.php');
 ?>
 <!DOCTYPE html>
@@ -8,14 +9,20 @@ require_once('includes/conexion.inc.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revel</title>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if (isset($_SESSION["usuario"])) {
+        echo '<link rel="stylesheet" href="css/style.css">';
+    } else {
+        echo '<link rel="stylesheet" href="css/style.css">';
+        echo '<link rel="stylesheet" href="css/nuevoUsuario.css">';
+    }
+    ?>
 </head>
 <body>
     <?php
     require_once('includes/cabecera.inc.php');
-    $registrado = true;
+
     
-    if ($registrado) {
         if(isset($_GET['id'])){
             //Muestra el revel recibido por GET
             $conexion = conectar();
@@ -50,18 +57,24 @@ require_once('includes/conexion.inc.php');
         }
     ?>
     <div class="formulario">
+    <?php
+    if (isset($_SESSION["usuario"])) {
+    ?>
+
         <h1>¡Deja tu comentario! <br>📸</h1><br>
         <form action="comment.php" method="post">
             <label for="comentario"><b>Comentario</b></label>
             <input type="text" name="comentario" id="comentario" required>
             <input type="hidden" value="<?=$_GET['id']?>" name="id" id="id">
-            <input class="registrar" type="submit" value="Comentar">
+            <input class="boton" type="submit" value="Comentar">
         </form>
-    </div>
     <?php
     } else {
-        echo "<h1>Debes estar registrado para ver los revels</h1>";
+    ?>
+        <h1>¡Regístrate para comentar! <br>📸</h1><br>
+    <?php
     }
     ?>
+    </div>
 </body>
 </html>

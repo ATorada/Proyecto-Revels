@@ -1,5 +1,11 @@
 <?php
+require_once('includes/autologin.inc.php');
+
 require_once('includes/conexion.inc.php');
+
+if(!isset($_SESSION["usuario"])){
+    header("Location: index.php");
+}
 
 //Recibe un comentario por POST y lo guarda en la base de datos si está correcto
 
@@ -26,11 +32,11 @@ if(count($_POST) > 0) {
         if (!is_null($conexion)) {
             $consulta = $conexion->prepare('INSERT INTO comments (revelid, userid, texto, fecha) VALUES (?, ?, ?, ?); ');
             
-            $id = 1;
+            $fecha = date("Y-m-d H:i:s");
             $consulta->bindParam(1, $_POST["id"]);
-            $consulta->bindParam(2, $id);
+            $consulta->bindParam(2, $_SESSION["usuario_id"]);
             $consulta->bindParam(3, $_POST["comentario"]);
-            $consulta->bindParam(4, date("Y-m-d H:i:s"));
+            $consulta->bindParam(4, $fecha);
 
             try {
                 $consulta->execute();

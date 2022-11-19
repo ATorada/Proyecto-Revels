@@ -1,5 +1,53 @@
 <?php
+require_once('includes/autologin.inc.php');
+
 require_once('includes/conexion.inc.php');
+
+
+if (count($_POST) > 0) {
+    $conexion = conectar();
+    $consulta = $conexion->prepare("SELECT * FROM users WHERE usuario = ? or email = ?");
+    $consulta->execute([$_POST["usuario"], $_POST["email"]]);
+    if ($consulta->rowCount() > 0) {
+        $errores[] = "<p class='error'>El usuario o el email ya está en uso</p>";
+    } else {
+        if (!preg_match("/^[A-z]{1}[A-z0-9._]{2,61}@[A-z0-9]{1,251}.[A-z]{2,4}$/", $_POST['email'])) {
+            $errores["email"] = "<p class='error'>El email no es válido.</p>";
+        }
+        if (!preg_match("/^[a-zA-Z0-9]{3,20}$/", $_POST['usuario'])) {
+            $errores["usuario"] = "<p class='error'>El usuario no es válido, debe tener entre 3 y 20 letras y números.</p>";
+        }
+        if (!preg_match("/^[a-zA-Z0-9]{8,255}$/", $_POST['contra'])) {
+            $errores["contra"] = "<p class='error'>La contraseña no es válida, debe tener un mínimo de 8 letras y números.</p>";
+        }
+        //En caso de que no se haya encontrado ningún error se intenta insertar el usuario en la base de datos
+        if (!isset($errores)) {
+            //Se comprueba que las contraseñas coincidan
+            if ($_POST['contra'] == $_POST['contra-repetir']) {
+                //Se cifra la contraseña
+                $_POST['contra'] = password_hash($_POST['contra'], PASSWORD_DEFAULT);
+                try {
+                    //Se inserta el usuario en la base de datos
+                    $consulta = $conexion->prepare("INSERT INTO users (usuario, email, contrasenya) VALUES (?, ? ,?)");
+                    $consulta->execute([$_POST['usuario'], $_POST['email'], $_POST['contra']]);
+
+                    $_SESSION['usuario'] = $_POST['usuario'];
+                    $_SESSION['usuario_id'] = $conexion->lastInsertId();
+
+                    unset($consulta);
+                    unset($conexion);
+                } catch (PDOException $e) {
+                    $errores[] = "<p class='error'>Error al registrar el usuario</p>";
+                }
+            } else {
+                $errores[] = "<p class='error'>Las contraseñas no coinciden</p>";
+            }
+        }
+        unset($consulta);
+        unset($conexion);
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,16 +58,12 @@ require_once('includes/conexion.inc.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revels ~ ✨</title>
     <?php
-    $registrado = true;
-    if ($registrado) {
-    ?>
-        <link rel="stylesheet" href="css/style.css">
-    <?php
+
+    if (isset($_SESSION["usuario"])) {
+        echo '<link rel="stylesheet" href="css/style.css">';
     } else {
-    ?>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/nuevoUsuario.css">
-    <?php
+        echo '<link rel="stylesheet" href="css/style.css">';
+        echo '<link rel="stylesheet" href="css/nuevoUsuario.css">';
     }
     ?>
 </head>
@@ -30,21 +74,28 @@ require_once('includes/conexion.inc.php');
     ?>
 
     <?php
-    if (!$registrado) {
+    if (!isset($_SESSION["usuario"])) {
     ?>
         <div class="formulario">
             <h1>¡Bienvenido a Revels! <br>📸</h1><br>
             <form action="#" method="post">
-                <label for="mail"><b>Correo electrónico</b></label>
-                <input type="text" name="mail" id="mail" required>
+
+                <label for="usuario"><b>Usuario</b></label>
+                <input type="text" name="usuario" id="usuario" value="<?=$_POST['usuario']??''?>" required>
+                <?php echo isset($errores["usuario"]) ? $errores["usuario"].'<br>' : ""; ?>
+
+                <label for="email"><b>Correo electrónico</b></label>
+                <input type="text" name="email" id="email" value="<?=$_POST['email']??''?>" required>
+                <?php echo isset($errores["email"]) ? $errores["usuario"].'<br>' : ""; ?>
 
                 <label for="contra"><b>Contraseña</b></label>
-                <input type="contra" name="contra" id="contra" required>
+                <input type="password" name="contra" id="contra" value="<?=$_POST['contra']??''?>" required>
 
                 <label for="contra-repetir"><b>Repetir Contraseña</b></label>
-                <input type="contra-repetir" name="contra-repetir" id="contra-repetir" required>
+                <input type="password" name="contra-repetir" id="contra-repetir" value="<?=$_POST['contra-repetir']??''?>" required>
+                <?php echo isset($errores["contra"]) ? $errores["usuario"].'<br>' : ""; ?>
 
-                <input class="registrar" type="submit" value="Registrar">
+                <input class="boton" type="submit" value="Registrar">
 
             </form>
         </div>
