@@ -55,15 +55,17 @@
             $conexion = conectar();
             $revels = $conexion->query("SELECT * FROM revels ORDER BY revels.fecha DESC");
 
-            while ($fila = $revels->fetch(PDO::FETCH_ASSOC)) {
+            while ($revel = $revels->fetch(PDO::FETCH_ASSOC)) {
                 echo '<a class="publicacion" href="https://www.google.com">';
-                echo '<h2>' . $fila['texto'] . '</h2>';
+                echo '<h2>' . $revel['texto'] . '</h2>';
                 echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
 
-                $usuario = $conexion->query("SELECT * FROM users WHERE id = " . $fila['userid']);
+                $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $revel['userid']);
                 $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
 
-                echo '<p>Comentarios: X Autor: <span class="autor">' . $usuario['usuario'] . '</span></p>';
+                $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = " . $revel['id']);
+
+                echo '<p>Comentarios: '. $comentarios->rowCount() .' Autor: <span class="autor">' . $usuario['usuario'] . '</span></p>';
                 echo '</a>';
             }
             ?>
