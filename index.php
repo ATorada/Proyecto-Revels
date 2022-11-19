@@ -53,7 +53,7 @@
             <h1>Fotillos<br>📸</h1><br>
             <?php
             $conexion = conectar();
-            $revels = $conexion->query("SELECT * FROM revels");
+            $revels = $conexion->query("SELECT * FROM revels ORDER BY revels.fecha DESC");
 
             while ($fila = $revels->fetch(PDO::FETCH_ASSOC)) {
                 echo '<a class="publicacion" href="https://www.google.com">';
