@@ -89,8 +89,15 @@ if(count($_POST)>0){
         echo '<input type="password" name="contraNueva2" id="contraNueva2" value="">';
         echo '<input type="submit" value="Modificar" class="boton">';
         echo '</form>';
-        unset($usuario);
-        unset($conexion);
     ?>
+    </div>
+
+    <div class="eliminaCuenta">
+        <h1>¿Quieres eliminar tu cuenta?</h1>
+        <form action="cancel.php?id=<?php echo $_GET['id']; ?>" method="post">
+            <input type="submit" value="Eliminar" class="boton borrar_cuenta">
+        </form>
+    </div>
+
 </body>
 </html>

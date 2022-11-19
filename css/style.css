@@ -159,10 +159,16 @@ body {
   margin-bottom: 20px;
   cursor: pointer;
   opacity: 0.9;
+  text-decoration: none;
 }
 
 .boton:hover {
   opacity: 1;
+}
+
+.borrar_cuenta {
+  font-size: 13px;
+  background-color: rgb(196, 66, 66);
 }
 
 .publicaciones {
@@ -245,7 +251,7 @@ body {
   width: 25%;
 }
 
-.revel, .errores, .resultados{
+.revel, .errores, .resultados, .eliminaCuenta{
   margin: 2%;
   margin-left: auto;
   margin-right: auto;
@@ -285,4 +291,8 @@ body {
 
 .usuario a:hover {
   color: #7604aa;
+}
+
+.confirmacion input {
+  display: inline !important;
 }
