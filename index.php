@@ -79,21 +79,20 @@ if (count($_POST) > 0) {
         <div class="formulario">
             <h1>¡Bienvenido a Revels! <br>📸</h1><br>
             <form action="#" method="post">
+                <?php
+                if (isset($errores)) {
+                    foreach ($errores as $error) {
+                        echo $error;
+                    }
+                }
+                ?>
+                <input type="text" name="usuario" id="usuario" value="<?=$_POST['usuario']??''?>" placeholder="Usuario" required>
 
-                <label for="usuario"><b>Usuario</b></label>
-                <input type="text" name="usuario" id="usuario" value="<?=$_POST['usuario']??''?>" required>
-                <?php echo isset($errores["usuario"]) ? $errores["usuario"].'<br>' : ""; ?>
+                <input type="text" name="email" id="email" value="<?=$_POST['email']??''?>" placeholder="Correo Electrónico" required>
 
-                <label for="email"><b>Correo electrónico</b></label>
-                <input type="text" name="email" id="email" value="<?=$_POST['email']??''?>" required>
-                <?php echo isset($errores["email"]) ? $errores["usuario"].'<br>' : ""; ?>
+                <input type="password" name="contra" id="contra" value="<?=$_POST['contra']??''?>" placeholder="Contraseña" required>
 
-                <label for="contra"><b>Contraseña</b></label>
-                <input type="password" name="contra" id="contra" value="<?=$_POST['contra']??''?>" required>
-
-                <label for="contra-repetir"><b>Repetir Contraseña</b></label>
-                <input type="password" name="contra-repetir" id="contra-repetir" value="<?=$_POST['contra-repetir']??''?>" required>
-                <?php echo isset($errores["contra"]) ? $errores["usuario"].'<br>' : ""; ?>
+                <input type="password" name="contra-repetir" id="contra-repetir" value="<?=$_POST['contra-repetir']??''?>" placeholder="Repetir Contraseña" required>
 
                 <input class="boton" type="submit" value="Registrar">
 

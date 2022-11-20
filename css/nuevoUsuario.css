@@ -1,11 +1,81 @@
+body {
+  background: linear-gradient(132deg, #4b185c, #9a56b3, #8229a0);
+  background-size: 400% 400%;
+  animation: all 0s !important;
+  animation: Gradient 10s ease infinite !important;
+}
 .cabecera {
-    overflow: hidden;
-    background-color: #ba70d3;
-    padding: 1%;
-    margin-left: 0% !important;
-    border-bottom: 2px black solid;
-  }
+  background: none;
+  margin-left: 0% !important;
+  border: none;
+}
+
+.formulario {
+  background: none;
+  border: none;
+}
+
+.formulario h1 {
+  color: #FFFFFF;
+  text-shadow:  #FFF 0px 0px 15px, #d082e4 0px 0px 20px, #d082e4 0px 0px 30px, #d082e4 0px 0px 40px, #d082e4 0px 0px 50px, #d082e4 0px 0px 75px;
+  color: #FFFFFF;
+}
+
+.formulario {
+  box-sizing: border-box;
+  height: 500px;
+  padding: 20px;
+  width: 350px;
+}
+
+input {
+  background-color: #eee5f5;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  box-shadow:  #d082e4 0px 0px 20px, #d082e4 0px 0px 30px, #d082e4 0px 0px 40px, #d082e4 0px 0px 50px, #d082e4 0px 0px 75px;
+  font-size: 15px;
+  outline: 0;
+  padding: 1%;
+  width: 100%;
+  text-align: center;
+  margin-top: 25px;
+  opacity: 0.5;
+  animation: opacity 2s ease;
+}
+
+input[type="submit"]{
+  background: linear-gradient(132deg, #4b185c, #9a56b3, #8229a0);
+  background-size: 400% 400%;
+  animation: Gradient 10s ease infinite;
+  opacity: 0.5;
+}
+
+input:focus, label:focus, input:hover, label:hover {
+  opacity: 1;
+  animation: opacity 2s ease;
+}
+
+.error {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  text-shadow:  #ff6db6 0px 0px 20px, #ff6db6 0px 0px 30px, #ff6db6 0px 0px 40px, #ff6db6 0px 0px 50px, #ff6db6 0px 0px 75px;
+}
 
 .barra_lateral{
     visibility: hidden !important; 
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

@@ -49,17 +49,13 @@ if (count($_POST) > 0) {
     ?>
     <h1>¡Inicia sesión! <br>📸</h1><br>
     <form action="login.php" method="post">
-        <label for="usuario">Usuario</label>
-        <input type="text" name="usuario" id="usuario" placeholder="Usuario" value="<?=$_POST['usuario'] ?? ""?>" required>
-        <label for="contra">Contraseña</label>
-        <input type="password" name="contra" id="contra" placeholder="Contraseña" value="<?=$_POST['contra'] ?? ""?>" required>
-
         <?php
         if (isset($error)) {
             echo $error;
         }
         ?>
-
+        <input type="text" name="usuario" id="usuario" placeholder="Usuario" value="<?= $_POST['usuario'] ?? "" ?>" required>
+        <input type="password" name="contra" id="contra" placeholder="Contraseña" value="<?= $_POST['contra'] ?? "" ?>" required>
         <input type="submit" value="Iniciar Sesión" class="boton">
     </form>
     </div>
