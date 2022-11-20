@@ -52,8 +52,8 @@ input[type="submit"]{
 }
 
 input:focus, label:focus, input:hover, label:hover {
-  opacity: 1;
-  animation: opacity 2s ease;
+  opacity: 1 !important;
+  animation: opacity 2s ease !important;
 }
 
 .error {
