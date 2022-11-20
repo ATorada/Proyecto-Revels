@@ -19,6 +19,9 @@ if (count($_POST) > 0) {
                 //Borra los comentarios del usuario
                 $consulta = $conexion->prepare("DELETE FROM comments WHERE userid = ?;");
                 $consulta->execute([$_SESSION['usuario_id']]);
+                //Borra las personas a las que sigue el usuario
+                $consulta = $conexion->prepare("DELETE FROM follows WHERE userid = ?;");
+                $consulta->execute([$_SESSION['usuario_id']]);
                 //Borra el usuario
                 $consulta = $conexion->prepare("DELETE FROM users WHERE id = ?;");
                 $consulta->execute([$_POST['id']]);

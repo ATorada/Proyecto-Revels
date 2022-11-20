@@ -131,7 +131,7 @@ if (count($_POST) > 0) {
             unset($consulta);
             unset($conexion);
             } else {
-                echo '<p>¡No sigues a nadie!</p>';
+                echo '<p>¡No sigues a nadie o tus seguidos no tienen revels!</p>';
             }
 
             ?>

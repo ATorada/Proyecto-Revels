@@ -58,10 +58,10 @@ if (count($_POST) > 0) {
                 echo "<form action='#' method='post'>";
                 if ($sigue) {
                     echo "<input type='hidden' name='amigo_id_borrar' value='".$usuario['id']."'>";
-                    echo "<input  type='submit' value='Dejar de seguir'>";
+                    echo "<input class='boton borrar_cuenta' type='submit' value='Dejar de seguir'>";
                 } else {
                     echo "<input type='hidden' name='amigo_id_seguir' value='".$usuario['id']."'>";
-                    echo "<input  type='submit' value='Seguir'>";
+                    echo "<input  class='boton' type='submit' value='Seguir'>";
                 }
                 echo "</form>";
                 echo '</div>';
