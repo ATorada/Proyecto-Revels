@@ -48,7 +48,7 @@ unset($conexion);
         echo "<div class='revel'>";
         echo '<h2>' . $revel['texto'] . '</h2>';
         //Comprueba si existe una imagen para el revel, sino pone una por defecto
-        if (file_exists('img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '_resized.jpg')) {
+        if (isset($_SESSION["usuario"]) && file_exists('img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '_resized.jpg')) {
             echo '<img class="preview_foto" src="img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '.jpg" alt="Imagen del revel">';
         } else {
             echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
