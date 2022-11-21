@@ -29,6 +29,7 @@ if (!isset($_SESSION['usuario'])) {
         while ($revel = $consulta->fetch(PDO::FETCH_ASSOC)) {
             echo '<div class="revel">';
             echo '<h2>' . $revel['texto'] . '</h2>';
+            echo '<p><span class="resaltado">' . $revel['fecha'] . '</span></p>';
             echo '<a href="delete.php?id=' . $revel['id'] . '">Eliminar</a>';
             echo '</div>';
         }
