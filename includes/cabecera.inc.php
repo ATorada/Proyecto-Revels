@@ -34,6 +34,9 @@
             } catch (\Throwable $th) {
                 echo '<p class="error">Algo ha salido mal accediendo a la base de datos</p>';
             }
+            //Se cierra la conexión
+            unset($consulta);
+            unset($conexion);
             ?>
         </div>
         <div class="cabecera">
