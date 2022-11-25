@@ -1,4 +1,11 @@
 <?php
+/*
+    Desarrollado por: Ángel Torada
+
+    Este archivo:
+    - Contiene la lógica para cerrar la sesión
+*/
+
 //Se inicia la sesión
 session_start();
 //Se destruye la sesión
