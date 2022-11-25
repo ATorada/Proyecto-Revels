@@ -1,5 +1,5 @@
 <?php
-require_once('includes/autologin.inc.php');
+session_start();
 require_once('includes/conexion.inc.php');
 
 if (!isset($_GET['id'])) {

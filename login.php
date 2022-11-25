@@ -1,6 +1,6 @@
 <?php
+session_start();
 require_once('includes/conexion.inc.php');
-require_once('includes/autologin.inc.php');
 if (isset($_SESSION["usuario"])) {
     header("Location: index.php");
 }
