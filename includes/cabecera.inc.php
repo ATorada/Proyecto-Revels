@@ -10,9 +10,14 @@
             $consulta->execute([$_SESSION['usuario_id']]);
             if ($consulta->rowCount() > 0) {
                 while ($seguido = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                    $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $seguido['userfollowed']);
+                    $usuario = $conexion->query("SELECT usuario,id FROM users WHERE id = " . $seguido['userfollowed']);
                     $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+                    echo "<form action='results.php' method='post'>";
                     echo '<p>' . $usuario['usuario'] . '</p>';
+                    echo '<input type="hidden" name="amigo_id_borrar" value="' . $usuario['id'] . '">';
+                    echo '<input type="hidden" name="location" value="'.$_SERVER['REQUEST_URI'].'">';
+                    echo '<input class="boton borrar_cuenta" type="submit" value="Dejar de seguir">';
+                    echo "</form>";
                 }
             } else {
                 echo '<p>No sigues a nadie</p>';

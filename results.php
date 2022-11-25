@@ -20,6 +20,9 @@ if (count($_POST) > 0) {
             $consulta->bindParam(2, $_POST['amigo_id_borrar']);
             $consulta->execute();
         }
+        if (isset($_POST['location'])) {
+            header('Location: ' . $_POST['location']);
+        }
     }
 }
 
