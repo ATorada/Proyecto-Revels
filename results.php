@@ -45,19 +45,24 @@ if (count($_POST) > 0) {
     if (isset($_GET['busqueda'])) {
         $conexion = conectar();
         //Muestra los usuarios que coinciden con la búsqueda junto a un botón de añadir sin incluir el usuario actual
-        $consulta = $conexion->prepare("SELECT * FROM users WHERE usuario LIKE ? AND id != ?");
+        $consulta = $conexion->prepare("SELECT usuario,id FROM users WHERE usuario LIKE ? AND id != ?");
         $consulta->execute(array('%' . $_GET['busqueda'] . '%', $_SESSION['usuario_id']));
         $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         if ($resultado) {
+            //Obtiene los usuarios que el usuario actual sigue
+            $consulta = $conexion->prepare("SELECT * FROM follows WHERE userid = ?");
+            $consulta->execute([$_SESSION['usuario_id']]);
+            $seguidos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            $seguidos_ids = array();
+            foreach ($seguidos as $seguido) {
+                array_push($seguidos_ids, $seguido['userfollowed']);
+            }
             foreach ($resultado as $usuario) {
                 //Se comprueba si el usuario ya sigue al usuario que se está mostrando
-                $consulta = $conexion->prepare("SELECT * FROM follows WHERE userid = ? AND userfollowed = ?");
-                $consulta->execute(array($_SESSION['usuario_id'], $usuario['id']));
-                $sigue = $consulta->fetch(PDO::FETCH_ASSOC);
                 echo '<div class="usuario">';
                 echo "<p>" . $usuario['usuario'] . "</p>";
                 echo "<form action='#' method='post'>";
-                if ($sigue) {
+                if (in_array($usuario['id'], $seguidos_ids)) {
                     echo "<input type='hidden' name='amigo_id_borrar' value='" . $usuario['id'] . "'>";
                     echo "<input class='boton borrar_cuenta' type='submit' value='Dejar de seguir'>";
                 } else {
