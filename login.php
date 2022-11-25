@@ -1,31 +1,46 @@
 <?php
+/*
+    Desarrollado por: Ángel Torada
+
+    Este archivo:
+    - Contiene la página con el formulario de inicio de sesión
+*/
+
+//Se comprueba que el usuario esté logueado y se importa la función de conexión a la base de datos
 session_start();
 require_once('includes/conexion.inc.php');
+
 if (isset($_SESSION["usuario"])) {
     header("Location: index.php");
 }
 
+//Se comprueba si se ha enviado el formulario
 if (count($_POST) > 0) {
 
-    $conexion = conectar();
+    //Se comprueba que el usuario y la contraseña coincidan con los de la base de datos y se inicia sesión
+    try {
+        $conexion = conectar();
 
-    if (!is_null($conexion)) {
-        $consulta = $conexion->prepare('SELECT * FROM users WHERE usuario = ? OR email = ?;');
-        $consulta->bindParam(1, $_POST["usuario"]);
-        $consulta->bindParam(2, $_POST["usuario"]);
-        $consulta->execute();
-        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-        if ($usuario) {
-            if (password_verify($_POST["contra"], $usuario["contrasenya"])) {
-                $_SESSION["usuario"] = $usuario["usuario"];
-                $_SESSION["usuario_id"] = $usuario["id"];
-                header('Location: index.php');
+        if (!is_null($conexion)) {
+            $consulta = $conexion->prepare('SELECT * FROM users WHERE usuario = ? OR email = ?;');
+            $consulta->bindParam(1, $_POST["usuario"]);
+            $consulta->bindParam(2, $_POST["usuario"]);
+            $consulta->execute();
+            $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+            if ($usuario) {
+                if (password_verify($_POST["contra"], $usuario["contrasenya"])) {
+                    $_SESSION["usuario"] = $usuario["usuario"];
+                    $_SESSION["usuario_id"] = $usuario["id"];
+                    header('Location: index.php');
+                } else {
+                    $error = '<p class="error">El usuario o la contraseña no son correctos.</p><br>';
+                }
             } else {
                 $error = '<p class="error">El usuario o la contraseña no son correctos.</p><br>';
             }
-        } else {
-            $error = '<p class="error">El usuario o la contraseña no son correctos.</p><br>';
         }
+    } catch (\Throwable $th) {
+        $error = '<p class="error">Algo ha salido mal con la conexión a la base de datos</p><br>';
     }
 }
 
@@ -44,12 +59,14 @@ if (count($_POST) > 0) {
 
 <body>
     <?php
+    //Importamos el header
     require_once('includes/cabecera.inc.php');
     echo '<div class="formulario">';
     ?>
     <h1>¡Inicia sesión! <br>📸</h1><br>
     <form action="login.php" method="post">
         <?php
+        //Se muestran los errores
         if (isset($error)) {
             echo $error;
         }
