@@ -21,8 +21,8 @@ if(count($_POST) > 0) {
         }
     }
 
-    if ((strlen($_POST["comentario"]) < 3 || strlen($_POST["comentario"]) > 255) && !isset($errores["comentario"])) {
-        $errores["texto"] = '<p class="error">El comentario solo recibe de 3 a 255 caracteres.</p><br>';
+    if ((strlen($_POST["comentario"]) < 20 || strlen($_POST["comentario"]) > 255) && !isset($errores["comentario"])) {
+        $errores["texto"] = '<p class="error">El comentario solo recibe de 20 a 255 caracteres.</p><br>';
     }
 
 
