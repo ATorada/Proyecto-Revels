@@ -283,6 +283,7 @@ input[type="checkbox"] {
 }
 
 .comentario {
+  word-wrap: break-word;
   background-color: rgb(250, 244, 255);
   border: 1px solid black;
   border-radius: 10px;
