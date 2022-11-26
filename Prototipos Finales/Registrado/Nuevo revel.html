@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo revel</title>
+    <link rel="stylesheet" href="./Nuevo revel_files/style.css">
+</head>
+
+<body>
+    <header>
+            <div class="barra_lateral">
+            <h3>Seguidos</h3>
+            <form action="http://localhost/results.php" method="post"><p>Antonio</p><input type="hidden" name="amigo_id_borrar" value="1"><input type="hidden" name="location" value="/new.php"><input class="boton borrar_cuenta" type="submit" value="Dejar de seguir"></form>        </div>
+        <div class="cabecera">
+            <a href="http://localhost/index.php"><img class="logo" src="./Nuevo revel_files/logo.png" alt="Logo_Revels"></a>
+            <div class="barra_navegacion">
+                <a href="http://localhost/new.php">Nuevo Revel</a>
+                <a href="http://localhost/account.php?id=15">Cuenta</a>
+                <a href="http://localhost/logout.php">Cerrar sesión</a>
+                <div class="busqueda">
+                    <form action="http://localhost/results.php">
+                        <input type="text" name="busqueda" id="busqueda">
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>    <div class="formulario">
+        <form action="http://localhost/new.php#" method="post" enctype="multipart/form-data">
+            <h1>¡Crea un Revel!📸</h1><br>
+            <label for="titulo">Título</label>
+            <input type="text" name="titulo" id="titulo" value="">
+                        <label for="imagen">Imagen</label>
+            <input type="file" name="imagen" id="imagen">
+                        <input class="boton" type="submit" value="Crear Revel">
+        </form>
+    </div>
+
+
+
+</body></html>

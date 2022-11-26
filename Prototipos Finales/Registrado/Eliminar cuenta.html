@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar cuenta</title>
+    <link rel="stylesheet" href="./Eliminar cuenta_files/style.css">
+    <link rel="stylesheet" href="./Eliminar cuenta_files/backend.css">
+</head>
+
+<body>
+    <header>
+            <div class="barra_lateral">
+            <h3>Seguidos</h3>
+            <form action="http://localhost/results.php" method="post"><p>Antonio</p><input type="hidden" name="amigo_id_borrar" value="1"><input type="hidden" name="location" value="/cancel.php?id=15"><input class="boton borrar_cuenta" type="submit" value="Dejar de seguir"></form>        </div>
+        <div class="cabecera">
+            <a href="http://localhost/index.php"><img class="logo" src="./Eliminar cuenta_files/logo.png" alt="Logo_Revels"></a>
+            <div class="barra_navegacion">
+                <a href="http://localhost/new.php">Nuevo Revel</a>
+                <a href="http://localhost/account.php?id=15">Cuenta</a>
+                <a href="http://localhost/logout.php">Cerrar sesión</a>
+                <div class="busqueda">
+                    <form action="http://localhost/results.php">
+                        <input type="text" name="busqueda" id="busqueda">
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>    <div class="formulario">
+                <h1>¿Estás seguro de que quieres eliminar tu cuenta?</h1>
+        <form action="http://localhost/cancel.php?id=15" method="post">
+            <div class="confirmacion">
+                <input type="checkbox" name="confirmar" id="confirmar" value="si">
+                <label for="confirmar">Confirmación</label>
+            </div>
+            <input type="hidden" name="id" id="id" value="15">
+            <input type="submit" class="boton borrar_cuenta" value="Eliminar">
+        </form>
+
+
+</div></body></html>

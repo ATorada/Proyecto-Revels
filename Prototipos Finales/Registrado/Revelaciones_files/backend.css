@@ -1,0 +1,26 @@
+body {
+    background: rgb(198, 190, 236);
+    background: radial-gradient(circle, #dfd2f0 36%, #8465ad 100%);
+}
+
+.cabecera {
+    background-color: none;
+}
+
+.barra_lateral {
+    background: rgb(198, 190, 236);
+    background: linear-gradient(0deg, #8465ad 0%, #dfd2f0 72%);
+}
+
+
+.formulario, .eliminaCuenta, .verRevelaciones, .listarRevelaciones{
+    box-shadow:  #FFF 0px 0px 15px, #8465ad 0px 0px 20px, #8465ad 0px 0px 30px, #8465ad 0px 0px 40px, #8465ad 0px 0px 50px;
+}
+
+.boton {
+    background-color: #8465ad;
+}
+
+.borrar_cuenta {
+    background-color: #b6717d;
+}

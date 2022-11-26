@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta</title>
+    <link rel="stylesheet" href="./Cuenta_files/style.css">
+    <link rel="stylesheet" href="./Cuenta_files/backend.css">
+</head>
+
+<body>
+    <header>
+            <div class="barra_lateral">
+            <h3>Seguidos</h3>
+            <form action="http://localhost/results.php" method="post"><p>Antonio</p><input type="hidden" name="amigo_id_borrar" value="1"><input type="hidden" name="location" value="/account.php?id=15"><input class="boton borrar_cuenta" type="submit" value="Dejar de seguir"></form>        </div>
+        <div class="cabecera">
+            <a href="http://localhost/index.php"><img class="logo" src="./Cuenta_files/logo.png" alt="Logo_Revels"></a>
+            <div class="barra_navegacion">
+                <a href="http://localhost/new.php">Nuevo Revel</a>
+                <a href="http://localhost/account.php?id=15">Cuenta</a>
+                <a href="http://localhost/logout.php">Cerrar sesión</a>
+                <div class="busqueda">
+                    <form action="http://localhost/results.php">
+                        <input type="text" name="busqueda" id="busqueda">
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>    <div class="formulario">
+        <h1>¡Cambia tus datos!</h1>
+        <form action="http://localhost/account.php?id=15" method="post"><label for="usuario">Usuario</label><input type="text" name="usuario" id="usuario" value="Papi"><label for="email">Email</label><input type="email" name="email" id="email" value="angel.torada.gonzalez@gmail.com"><label for="contra">Contraseña nueva</label><input type="password" name="contraNueva" id="contraNueva" value=""><label for="contra2">Repite la contraseña nueva</label><input type="password" name="contraNueva2" id="contraNueva2" value=""><input type="submit" value="Modificar" class="boton"></form>    </div>
+
+    <div class="eliminaCuenta">
+        <h1>¿Quieres eliminar tu cuenta?</h1>
+        <form action="http://localhost/cancel.php?id=15" method="post">
+            <input type="submit" value="Eliminar" class="boton borrar_cuenta">
+        </form>
+    </div>
+
+    <div class="verRevelaciones">
+        <h1>¿Quieres ver tus revelaciones?</h1>
+        <a href="http://localhost/list.php" class="boton">Ver</a><br><br>
+    </div>
+
+
+
+</body></html>
