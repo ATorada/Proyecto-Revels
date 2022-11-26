@@ -1,4 +1,12 @@
 <?php
+/*
+    Desarrollado por: Ángel Torada
+
+    Este archivo:
+    - Muestra la información de un revel
+*/
+
+//Se comprueba que el usuario esté logueado y se importa la función de conexión a la base de datos
 session_start();
 require_once('includes/conexion.inc.php');
 
@@ -7,9 +15,12 @@ if (!isset($_GET['id'])) {
 }
 
 //Comprueba que el revel exista
-$conexion = conectar();
-$consulta = $conexion->prepare("SELECT * FROM revels WHERE id = ?");
-$consulta->execute([$_GET['id']]);
+try {
+    $conexion = conectar();
+    $consulta = $conexion->prepare("SELECT * FROM revels WHERE id = ?");
+    $consulta->execute([$_GET['id']]);
+} catch (\Throwable $th) {
+}
 if ($consulta->rowCount() <= 0) {
     header('Location: index.php');
 }
@@ -25,10 +36,8 @@ unset($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revel</title>
     <?php
-    if (isset($_SESSION["usuario"])) {
-        echo '<link rel="stylesheet" href="css/style.css">';
-    } else {
-        echo '<link rel="stylesheet" href="css/style.css">';
+    echo '<link rel="stylesheet" href="css/style.css">';
+    if (!isset($_SESSION["usuario"])) {
         echo '<link rel="stylesheet" href="css/nuevoUsuario.css">';
     }
     ?>
@@ -36,13 +45,14 @@ unset($conexion);
 
 <body>
     <?php
+    //Se importa el header
     require_once('includes/cabecera.inc.php');
 
 
     if (isset($_GET['id'])) {
         //Muestra el revel recibido por GET
         $conexion = conectar();
-        $revels = $conexion->prepare("SELECT * FROM revels WHERE id = ?");
+        $revels = $conexion->prepare("SELECT revels.*, users.usuario FROM revels INNER JOIN users ON revels.userid = users.id WHERE revels.id = ?");
         $revels->execute([$_GET['id']]);
         $revel = $revels->fetch(PDO::FETCH_ASSOC);
         echo "<div class='revel'>";
@@ -50,14 +60,13 @@ unset($conexion);
         //Comprueba si existe una imagen para el revel, sino pone una por defecto
         if (isset($_SESSION["usuario"]) && file_exists('img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '_resized.jpg')) {
             echo '<img class="preview_foto" src="img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '.jpg" alt="Imagen del revel">';
-        } else {
+        }
+        /* En caso de que se quiera enfocar como que todos los revels tienen foto, se puede poner una imagen por defecto
+        else {
             echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
         }
-
-        $usuario = $conexion->query("SELECT usuario FROM users WHERE id = " . $revel['userid']);
-        $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
-
-        echo '<p>Autor: <span class="resaltado">' . $usuario['usuario'] . '</span></p>';
+         */
+        echo '<p>Autor: <span class="resaltado">' . $revel['usuario'] . '</span></p>';
         echo '<p>Fecha: <span class="resaltado">' . $revel['fecha'] . '</span></p>';
 
         //Muestra los comentarios del revel
