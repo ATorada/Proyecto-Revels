@@ -137,9 +137,11 @@ if (count($_POST) > 0) {
                         //Comprueba si existe una imagen para el revel, sino pone una por defecto
                         if (file_exists('img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '_resized.jpg')) {
                             echo '<img class="preview_foto" src="img/revels/' . $revel['id'] . "_" . $_SESSION["usuario"]  . '_resized.jpg" alt="Imagen del revel">';
-                        } else {
-                            echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
                         }
+                        /* En caso de que se quiera enfocar como que todos los revels tienen foto, se puede poner una imagen por defecto
+                        else {
+                            echo '<img class="preview_foto" src="img/placeholder.jpg" alt="revel_foto">';
+                        } */
 
                         echo '<p>Autor: <span class="resaltado">' . $revel['usuario'] . '</span></p>';
                         echo '<p>Comentarios: <span class="resaltado">' . $revel['num_comentarios'] . '</span></p>';
