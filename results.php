@@ -1,4 +1,12 @@
 <?php
+/*
+    Desarrollado por: Ángel Torada
+
+    Este archivo:
+    - Contiene los resultados de la búsqueda y la lógica para seguir y dejar de seguir a un usuario
+*/
+
+//Se comprueba que el usuario esté logueado y se importa la función de conexión a la base de datos
 session_start();
 require_once('includes/conexion.inc.php');
 
@@ -7,22 +15,26 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 if (count($_POST) > 0) {
-    $conexion = conectar();
-    if (!is_null($conexion)) {
-        if (isset($_POST['amigo_id_seguir'])) {
-            $consulta = $conexion->prepare('INSERT INTO follows (userid, userfollowed) VALUE (?, ?);');
-            $consulta->bindParam(1, $_SESSION['usuario_id']);
-            $consulta->bindParam(2, $_POST['amigo_id_seguir']);
-            $consulta->execute();
-        } else {
-            $consulta = $conexion->prepare('DELETE FROM follows WHERE userid = ? AND userfollowed = ?;');
-            $consulta->bindParam(1, $_SESSION['usuario_id']);
-            $consulta->bindParam(2, $_POST['amigo_id_borrar']);
-            $consulta->execute();
+    try {
+        $conexion = conectar();
+        if (!is_null($conexion)) {
+            if (isset($_POST['amigo_id_seguir'])) {
+                $consulta = $conexion->prepare('INSERT INTO follows (userid, userfollowed) VALUE (?, ?);');
+                $consulta->bindParam(1, $_SESSION['usuario_id']);
+                $consulta->bindParam(2, $_POST['amigo_id_seguir']);
+                $consulta->execute();
+            } else {
+                $consulta = $conexion->prepare('DELETE FROM follows WHERE userid = ? AND userfollowed = ?;');
+                $consulta->bindParam(1, $_SESSION['usuario_id']);
+                $consulta->bindParam(2, $_POST['amigo_id_borrar']);
+                $consulta->execute();
+            }
+            if (isset($_POST['location'])) {
+                header('Location: ' . $_POST['location']);
+            }
         }
-        if (isset($_POST['location'])) {
-            header('Location: ' . $_POST['location']);
-        }
+    } catch (\Throwable $th) {
+        echo '<p class="error">Ha ocurrido un error con la conexión a la base de datos</p>';
     }
 }
 
@@ -40,11 +52,12 @@ if (count($_POST) > 0) {
 
 <body>
     <?php
+    //Importamos el header
     require_once('includes/cabecera.inc.php');
     echo "<div class='resultados'>";
     echo '<h1>Resultados</h1>';
 
-
+    //Se comprueba que se haya enviado el formulario de búsqueda
     if (isset($_GET['busqueda'])) {
         $conexion = conectar();
         //Muestra los usuarios que coinciden con la búsqueda junto a un botón de añadir sin incluir el usuario actual
@@ -78,6 +91,7 @@ if (count($_POST) > 0) {
         } else {
             echo "<p>No se han encontrado resultados</p>";
         }
+        //Se cierra la conexión
         unset($consulta);
         unset($resultado);
         unset($conexion);
