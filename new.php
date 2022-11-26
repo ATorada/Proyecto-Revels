@@ -1,4 +1,12 @@
 <?php
+/*
+    Desarrollado por: Ángel Torada
+
+    Este archivo:
+    - Contiene el formulario y la lógica para crear un nuevo revel
+*/
+
+//Se comprueba que el usuario esté logueado y se importa la función de conexión a la base de datos
 session_start();
 require_once('includes/conexion.inc.php');
 
@@ -6,10 +14,8 @@ if (!isset($_SESSION["usuario"])) {
     header("Location: index.php");
 }
 
-//Se establecen las expresiones regulares en variables para posteriormente entender mejor el código
-$exprTitulo = '/^[A-z0-9\s\ñ]{3,15}$/';
-$errores = null;
 
+$errores = null;
 //En caso de que se hayan enviado datos posteriormente se realizarán estas comprobaciones
 if (count($_POST) != 0) {
 
@@ -22,62 +28,69 @@ if (count($_POST) != 0) {
         }
     }
 
-    if (!preg_match($exprTitulo, $_POST["titulo"]) && !isset($errores["titulo"])) {
-        $errores["titulo"] = '<p class="error">El titulo solo recibe de 3 a 15 letras y números.</p><br>';
+    if (!preg_match('/^[A-z0-9\s\ñ]{3,100}$/', $_POST["titulo"]) && !isset($errores["titulo"])) {
+        $errores["titulo"] = '<p class="error">El titulo solo recibe de 3 a 100 letras y números.</p><br>';
     }
 
-    if (!$errores) {
-        $conexion = conectar();
+    try {
+        //Se comprueba si hay una imagen
+        if (isset($_FILES["imagen"])) {
+            //Se comprueba que el archivo sea una imagen, que no haya errores y que no sea mayor de 50MB 
+            if ($_FILES["imagen"]["error"] == 0 && $_FILES["imagen"]["size"] < 52428800 && $_FILES["imagen"]["type"] == "image/jpeg") {
+                //Se guarda la imagen original y una copia a mitad de tamaño en la carpeta img revels
+                $imagen = $_FILES["imagen"]["tmp_name"];
+                $nombreImagen = $conexion->lastInsertId() . "_" . $_SESSION["usuario"];
+                $ruta = "img/revels/" . $nombreImagen;
+                move_uploaded_file($imagen, $ruta . ".jpg");
 
-        if (!is_null($conexion)) {
-            $consulta = $conexion->prepare('INSERT INTO revels (userid, texto, fecha) VALUES (?, ?, ?); ');
-
-            $fecha = date("Y-m-d H:i:s");
-            $consulta->bindParam(1, $_SESSION["usuario_id"]);
-            $consulta->bindParam(2, $_POST["titulo"]);
-            $consulta->bindParam(3, $fecha);
-            try {
-                $consulta->execute();
-                //Comprueba si la imagen existe
-                if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
-                    //Se guarda la imagen original y una copia a mitad de tamaño en la carpeta img revels
-                    $imagen = $_FILES["imagen"]["tmp_name"];
-                    $nombreImagen = $conexion->lastInsertId() . "_" . $_SESSION["usuario"];
-                    $ruta = "img/revels/" . $nombreImagen;
-                    move_uploaded_file($imagen, $ruta . ".jpg");
-
-                    $imagen = imagecreatefromjpeg($ruta . ".jpg");
-                    $ancho = imagesx($imagen);
-                    $alto = imagesy($imagen);
-                    $anchoFinal = $ancho / 2;
-                    $altoFinal = $alto / 2;
-                    $imagenFinal = imagecreatetruecolor($anchoFinal, $altoFinal);
-                    imagecopyresampled($imagenFinal, $imagen, 0, 0, 0, 0, $anchoFinal, $altoFinal, $ancho, $alto);
-                    imagejpeg($imagenFinal, $ruta . "_resized.jpg");
-                    imagedestroy($imagen);
-                    imagedestroy($imagenFinal);
-                } else {
-                    $errores["imagen"] = '<p class="error">No se ha podido subir la imagen.</p>';
-                }
-            header('Location: revel.php?id=' . $conexion->lastInsertId());
-            } catch (PDOException $e) {
-                $id = $conexion->lastInsertId();
-                //Borra la revel si no se ha podido subir la imagen
-                $consulta = $conexion->prepare('DELETE FROM revels WHERE id = ?');
-                $consulta->bindParam(1, $id);
-                $consulta->execute();
-                //Borra la imagen si no se ha podido subir
-                $nombreFoto = "img/revels/" . $id. "_" . $_SESSION["usuario"] . ".jpg";
-                if (is_file($nombreFoto)) {
-                    unlink($nombreFoto);
-                }
-                $nombreFoto = "img/revels/" . $id. "_" . $_SESSION["usuario"] . "_resized.jpg";
-                if (is_file($nombreFoto)) {
-                    unlink($nombreFoto);
-                }
+                $imagen = imagecreatefromjpeg($ruta . ".jpg");
+                $ancho = imagesx($imagen);
+                $alto = imagesy($imagen);
+                $anchoFinal = $ancho / 2;
+                $altoFinal = $alto / 2;
+                $imagenFinal = imagecreatetruecolor($anchoFinal, $altoFinal);
+                imagecopyresampled($imagenFinal, $imagen, 0, 0, 0, 0, $anchoFinal, $altoFinal, $ancho, $alto);
+                imagejpeg($imagenFinal, $ruta . "_resized.jpg");
+                imagedestroy($imagen);
+                imagedestroy($imagenFinal);
+            } else {
+                $errores["imagen"] = '<p class="error">La imagen debe ser de tipo jpeg y no puede superar los 50MB.</p><br>';
             }
-            unset($consulta);
-            unset($conexion);
+        }
+
+        //Sino hay errores se guardar la foto se intenta insertar el revel a la base de datos
+        if (!$errores) {
+            $conexion = conectar();
+
+            if (!is_null($conexion)) {
+                $consulta = $conexion->prepare('INSERT INTO revels (userid, texto, fecha) VALUES (?, ?, ?); ');
+
+                $fecha = date("Y-m-d H:i:s");
+                $consulta->bindParam(1, $_SESSION["usuario_id"]);
+                $consulta->bindParam(2, $_POST["titulo"]);
+                $consulta->bindParam(3, $fecha);
+                $consulta->execute();
+                //Se cierra la sesión
+                unset($consulta);
+                unset($conexion);
+                //Se redirige a la página del revel creado
+                header('Location: revel.php?id=' . $conexion->lastInsertId());
+            }
+        }
+    } catch (\Throwable $th) {
+        //Borra la revel si no se ha podido subir la imagen
+        $id = $conexion->lastInsertId();
+        $consulta = $conexion->prepare('DELETE FROM revels WHERE id = ?');
+        $consulta->bindParam(1, $id);
+        $consulta->execute();
+        //Borra la imagen si no se ha podido subir
+        $nombreFoto = "img/revels/" . $id . "_" . $_SESSION["usuario"] . ".jpg";
+        if (is_file($nombreFoto)) {
+            unlink($nombreFoto);
+        }
+        $nombreFoto = "img/revels/" . $id . "_" . $_SESSION["usuario"] . "_resized.jpg";
+        if (is_file($nombreFoto)) {
+            unlink($nombreFoto);
         }
     }
 }
@@ -95,6 +108,7 @@ if (count($_POST) != 0) {
 
 <body>
     <?php
+    //Se importa el header
     require_once('includes/cabecera.inc.php');
     ?>
     <div class="formulario">
